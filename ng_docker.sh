@@ -9,6 +9,10 @@
 # E-mail: fantonios@gmail.com                                                 		 #
 #                                                                             		 #
 ##########################################################################################
+
+preto="\033[0;30m"
+vermelho="\033[0;31m"
+verde="\033[0;32m"
  
 # clear the screen
 tput clear
@@ -24,32 +28,32 @@ tput sgr0
 tput cup 5 17
 # Set reverse video mode
 tput rev
-echo " - MENU - DE - OPÇÕES"
+echo " Menu Options "
 tput sgr0
  
 tput cup 7 15
-echo "1. Criar um container com imagem existente."
+echo "1. Create a container with an existing image."
 
 tput cup 8 15
-echo "2. Criar um container com uma nova imagem."
+echo "2. Create a container with an new image."
 
 tput cup 9 15
-echo "3. Criar um Pool de containers"
+echo "3. Create a set of container"
  
 tput cup 10 15
-echo "4. Acessar o Pool de containers"
+echo "4. Get a set of containers"
  
 tput cup 11 15
-echo "5. Listar os containers ativos"
+echo "5. List a set of containers"
  
 tput cup 12 15
-echo "6. Verificar Memória Compartilhada"
+echo "6. Check shared memory"
 
 tput cup 13 15
-echo "7. Análise de Desempenho do host físico"
+echo "7. Remove all containers"
 
 tput cup 14 15
-echo "8. Sair"
+echo "8. Exit"
  
 # Set bold mode
 tput bold
@@ -63,13 +67,21 @@ tput rc
 function base
 {
 	echo " Criando um container! ";
-	docker run -it debian:8 /bin/bash
+	docker run -it debian:8 /bin/bash >> /dev/null
 
 }
 
-function ajustes_iniciais
+function poolcontainer
 {
-	echo "### Ajustes Iniciais ###"; invoke-rc.d exim4 stop > /dev/null; invoke-rc.d nfs-common stop > /dev/null; invoke-rc.d portmap stop > /dev/null;
+	echo "Entre com o número de Containers:"
+	read numcont	
+	passo=1
+	for passo in $(seq $numcont)
+	do
+		echo -e "Container" $passo " \033[0;32m [Ok]  \033[0m"
+		docker run -itd debian >> /dev/null
+	done
+
 	echo "Ok!"
 
 }
@@ -77,9 +89,6 @@ function ajustes_iniciais
 function data_hora
 {
 	echo "Atualizando data e hora";
-	ntpdate br.pool.ntp.org > /dev/null;
-	ntpdate a.ntp.br > /dev/null;
-	hwclock -s;
 	echo "Seu Time Zone:"
 	cat /etc/timezone
 }
@@ -103,9 +112,10 @@ function mysqlserver
         aptitude install mysql-server mysql-client mysql-common
 }
 
-function php
+function removeall
 {
-         aptitude install php5
+	docker rm -f $(docker ps -a -q)
+	echo -e "Containers successfully removed \033[0;31m [Ok]  \033[0m"
 }
 
 case "$resposta" in
@@ -117,7 +127,7 @@ case "$resposta" in
 	;;	
 
 	3)
-		data_hora
+		poolcontainer
 	;;
 	4)
 		echo "Instalando o APACHE2"
@@ -132,8 +142,8 @@ case "$resposta" in
 		php
 	;;
 	7)
-		echo "Instalacao e Configuracao do E-mail (sendmail)";
-		femail
+		echo "Remove all containers";
+		removeall
 	;;
 	8)
 		echo "Astalavista Baby!"
