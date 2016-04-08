@@ -64,16 +64,23 @@ tput clear
 tput sgr0
 tput rc
 
-function base
+function newc
 {
-	echo " Criando um container! ";
+	echo " Create a new container! ";
+	docker run -it debian:8 /bin/bash >> /dev/null
+
+}
+
+function newci
+{
+	echo " Create a new container! ";
 	docker run -it debian:8 /bin/bash >> /dev/null
 
 }
 
 function poolcontainer
 {
-	echo "Entre com o número de Containers:"
+	echo "Enter the number of Containers:"
 	read numcont	
 	passo=1
 	for passo in $(seq $numcont)
@@ -86,30 +93,19 @@ function poolcontainer
 
 }
 
-function data_hora
+function getsetcontainer
 {
-	echo "Atualizando data e hora";
-	echo "Seu Time Zone:"
-	cat /etc/timezone
+	echo "Under construction";
 }
 
-function femail
+function containerlist
 {
-	echo "Instalando servidor de e-mail";
-	aptitude install sendmail sendmail-base sendmail-bin sendmail-cf sensible-mda
+	docker ps
 }
 
- function webserver
+ function checkshm
 {
-         echo "##########################################################";
-         echo "# Instalação e configuração do servidor Web              #";
-         echo "##########################################################";
-         aptitude install apache2 libapache2-mod-php5
-}
-
-function mysqlserver
-{
-        aptitude install mysql-server mysql-client mysql-common
+	ipcs -m
 }
 
 function removeall
@@ -120,26 +116,29 @@ function removeall
 
 case "$resposta" in
 	1)
-		base
+		echo "Create existing image of container"
+		newc
 	;;
 	2)
-		ajustes_iniciais
+		echo "Create new image of container"
+		newci
 	;;	
 
 	3)
+		echo "Create pool of Containers"		
 		poolcontainer
 	;;
 	4)
-		echo "Instalando o APACHE2"
-		webserver
+		echo "Conect all Containers"
+		getsetcontainer
 	;;
 	5)
-		echo "Instalando MYSQL"
-		mysqlserver
+		echo "List of Containers"
+		containerlist
 	;;
 	6)
-		echo "Instalando PHP5"
-		php
+		echo "Check Shared Memory"
+		checkshm
 	;;
 	7)
 		echo "Remove all containers";
@@ -150,6 +149,6 @@ case "$resposta" in
 		exit
 	;;
 	*)
-		echo "Você tem de entrar com um parâmetro válido"
+		echo "You must enter a valid parameter"
 	;;
 esac
