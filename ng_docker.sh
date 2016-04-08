@@ -4,7 +4,7 @@
 # Descrição: Script para inicialização de um pool de Containers com a novagenesis	 #
 # Nome: ng_docker.sh							     		 #
 # Versão 1.0  								      		 #
-# Data: 05/04/2016						              		 #
+# Data: 07/04/2016						              		 #
 # Autor: Fábio Antonio Ferreira                                               		 #
 # E-mail: fantonios@gmail.com                                                 		 #
 #                                                                             		 #
