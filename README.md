@@ -5,6 +5,8 @@ Este script tem por finalidade a execução de vários containers com a especifi
 
 # Modo de Execução:
 
+Faça do download do código e depois execute:
+
 ./ng_docker.sh
 
                   Menu Options 
