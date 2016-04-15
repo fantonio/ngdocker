@@ -66,9 +66,15 @@ tput rc
 
 function newc
 {
-	echo " Create a new container! ";
-	docker run -it debian:8 /bin/bash >> /dev/null
-
+	clear
+	echo "Create a new container! ";
+	echo "List Container Image: "
+	echo ""
+	docker images
+	echo ""
+	echo "Enter a Container Image:"
+	read img
+	docker run -it $img /bin/bash
 }
 
 function newci
@@ -82,7 +88,7 @@ function poolcontainer
 {
 	echo "Enter the number of Containers:"
 	read numcont
-	echo "Enter with an Container Image:"
+	echo "Enter a Container Image:"
 	read img
 	passo=1
 	for passo in $(seq $numcont)
