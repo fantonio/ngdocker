@@ -103,7 +103,14 @@ function poolcontainer
 
 function getsetcontainer
 {
-	echo "Under construction";
+#	echo "Under construction";
+	echo "List of veth"
+	echo ""
+	dmesg | grep veth | tail -16
+	echo ""
+#	ifconfig | grep veth | ether | cut -c 15-31
+	ifconfig | grep veth | cut -c 1-12 
+	ifconfig | grep veth | cut -c 50-66
 }
 
 function containerlist
