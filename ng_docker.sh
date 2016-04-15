@@ -4,7 +4,7 @@
 # Descrição: Script para inicialização de um pool de Containers com a novagenesis	 #
 # Nome: ng_docker.sh							     		 #
 # Versão 1.0  								      		 #
-# Data: 07/04/2016						              		 #
+# Data: 15/04/2016						              		 #
 # Autor: Fábio Antonio Ferreira                                               		 #
 # E-mail: fantonios@gmail.com                                                 		 #
 #                                                                             		 #
@@ -81,12 +81,14 @@ function newci
 function poolcontainer
 {
 	echo "Enter the number of Containers:"
-	read numcont	
+	read numcont
+	echo "Enter with an Container Image:"
+	read img
 	passo=1
 	for passo in $(seq $numcont)
 	do
 		echo -e "Container" $passo " \033[0;32m [Ok]  \033[0m"
-		docker run -itd debian >> /dev/null
+		docker run -itd $img >> /dev/null
 	done
 
 	echo "Ok!"
