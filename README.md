@@ -21,4 +21,5 @@ Faça do download do código e depois execute:
                8. Exit
                Enter your choice [1-8] 
 
-teste
+# Baixando a imagem Docker
+docker pull fantonio/ng_docker:v1
