@@ -22,4 +22,4 @@ Faça do download do código e depois execute:
                Enter your choice [1-8] 
 
 # Baixando a imagem Docker
-docker pull fantonio/ng_docker:v1
+docker pull fantonio/ng_debian:v1
