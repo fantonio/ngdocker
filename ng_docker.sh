@@ -95,6 +95,8 @@ function poolcontainer
 	do
 		echo -e "Container" $passo " \033[0;32m [Ok]  \033[0m"
 		docker run -itd $img >> /dev/null
+#		id_img = $()
+#		docker exec -it $id_img
 	done
 
 	echo "Ok!"
